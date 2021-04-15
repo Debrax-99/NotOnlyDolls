@@ -33,4 +33,9 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     public Collection getMappingBasePackages() {
         return Collections.singleton("com.notonlydolls");
     }
+    
+    @Override
+    protected boolean autoIndexCreation() {
+        return true;
+    }
 }
