@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.notonlydolls.nodwebsite.repository.BlogPost;
+import com.notonlydolls.nodwebsite.repository.GalleryPicture;
 import com.notonlydolls.nodwebsite.services.BlogPostServiceI;
+import com.notonlydolls.nodwebsite.services.GalleryPictureServiceI;
 
 /**
  * Clase "Aplicación Spring Boot" que consume servicios de gestión de Backoffice
@@ -28,6 +30,10 @@ public class NodwebsiteApplication implements CommandLineRunner {
 	/** Servicio de consultas y gestión de noticias del blog */
 	@Autowired
 	private BlogPostServiceI blogPostService;
+
+	/** Servicio de consultas y gestión de fotos del blog */
+	@Autowired
+	private GalleryPictureServiceI galleryPictureService;
 
 	/**
 	 * Método principal
@@ -76,6 +82,35 @@ public class NodwebsiteApplication implements CommandLineRunner {
 		// Modificación del texto de la noticia 3
 		blogPost3.setText("Esto es otro texto de prueba 3.");
 		blogPostService.update(blogPost3);
+
+		// Creación de 3 fotos e inserción de las mismas en la base de datos
+		System.out.println("****************** INSERT GALLERY PICTURES ******************");
+		GalleryPicture galleryPicture1 = new GalleryPicture();
+		galleryPicture1.setTitle("Picture 1 from NoD!");
+		galleryPictureService.insert(galleryPicture1);
+
+		GalleryPicture galleryPicture2 = new GalleryPicture();
+		galleryPicture2.setTitle("Picture 2 from NoD!");
+		galleryPictureService.insert(galleryPicture2);
+
+		GalleryPicture galleryPicture3 = new GalleryPicture();
+		galleryPicture3.setTitle("Picture 3 from NoD!");
+		galleryPictureService.insert(galleryPicture3);
+
+		System.out.println("*****************************************************");
+
+		// Búsqueda de todas las noticias existentes
+		List<GalleryPicture> galleryPictureList = galleryPictureService.searchAll();
+
+		// Búsqueda de una noticia por su ID
+		galleryPictureService.searchById(galleryPictureList.get(1).getId());
+
+		// Eliminación de la noticia 2
+		galleryPictureService.delete(galleryPictureList.get(1).getId());
+
+		// Modificación del texto de la noticia 3
+		galleryPicture3.setTitle("Another picture 3 from NoD!");
+		galleryPictureService.update(galleryPicture3);
 
 	}
 

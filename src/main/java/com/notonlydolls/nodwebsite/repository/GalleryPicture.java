@@ -34,7 +34,7 @@ public class GalleryPicture {
 	private Date lastDate;
 
 	@Field(value = "image")
-	/** Header image */
+	/** Header image URL */
 	private String image;
 
 	@Field(value = "title")

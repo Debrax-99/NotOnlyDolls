@@ -20,7 +20,7 @@ public interface BlogPostServiceI {
 	public void insert(final BlogPost entity);
 
 	/**
-	 * Método que consulta todos las noticias en la base de datos
+	 * Método que consulta todas las noticias en la base de datos
 	 * 
 	 * @return List<BlogPost>
 	 */
