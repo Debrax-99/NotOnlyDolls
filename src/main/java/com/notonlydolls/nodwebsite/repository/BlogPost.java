@@ -35,7 +35,7 @@ public class BlogPost {
 
 	@Field(value = "is_published")
 	/** Published flag */
-	private boolean isPublished;
+	private boolean published;
 
 	@Field(value = "image")
 	/** Header image */
@@ -109,14 +109,14 @@ public class BlogPost {
 	 * @return the isPublished
 	 */
 	public boolean isPublished() {
-		return isPublished;
+		return published;
 	}
 
 	/**
 	 * @param isPublished the isPublished to set
 	 */
-	public void setPublished(boolean isPublished) {
-		this.isPublished = isPublished;
+	public void setPublished(boolean published) {
+		this.published = published;
 	}
 
 	/**
@@ -207,8 +207,8 @@ public class BlogPost {
 	// TO STRING
 	@Override
 	public String toString() {
-		return "BlogPost [id=" + id + ", creationDate=" + creationDate + ", lastDate=" + lastDate + ", isPublished="
-				+ isPublished + ", image=" + image + ", title=" + title + ", slug=" + slug + ", category=" + category
+		return "BlogPost [id=" + id + ", creationDate=" + creationDate + ", lastDate=" + lastDate + ", published="
+				+ published + ", image=" + image + ", title=" + title + ", slug=" + slug + ", category=" + category
 				+ ", author=" + author + ", text=" + text + "]";
 	}
 

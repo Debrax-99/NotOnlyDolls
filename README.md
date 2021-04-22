@@ -1,2 +1,2 @@
 # NotOnlyDolls
-Repository for my art dolls website Not Only Dolls
+Repository for my personal art dolls website Not Only Dolls
