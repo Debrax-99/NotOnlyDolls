@@ -31,7 +31,7 @@ public class NodwebsiteApplication implements CommandLineRunner {
 	@Autowired
 	private BlogPostServiceI blogPostService;
 
-	/** Servicio de consultas y gestión de fotos del blog */
+	/** Servicio de consultas y gestión de fotos de la galería */
 	@Autowired
 	private GalleryPictureServiceI galleryPictureService;
 
