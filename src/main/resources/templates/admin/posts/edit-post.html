@@ -1,0 +1,119 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<title>NoD - Admin</title>
+</head>
+
+<body class="container">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/admin}"><img
+				src="../../images/NoDlogo.png" alt="Not Only Dolls logo"
+				style="width: 100px">NOT ONLY DOLLS | ADMIN</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/admin/posts}">Artículos del Blog</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/admin/photos}">Fotos de la Galería</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<main class="container py-5">
+		<h1>Editar artículo del Blog</h1>
+		<form th:action="@{/actEditBlogPost}" th:object="${blogPost}"
+			method="POST" enctype="multipart/form-data">
+			<div class="form-group mb-3">
+				<label for="inpBlogPostTitle" class="form-label">Título</label> <input
+					type="text" required="required" class="form-control"
+					id="inpBlogPostTitle" name="title" th:value="${blogPost.title}">
+			</div>
+			<div class="mb-3 form-check">
+				<input type="checkbox" class="form-check-input"
+					id="inpBlogPostPublished" name="published"
+					th:checked="${blogPost.published}"> <label
+					class="form-check-label" for="inpBlogPostPublished">Publicado</label>
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostAuthor" class="form-label">Autor</label> <input
+					type="text" class="form-control" id="inpBlogPostAuthor"
+					name="author" th:value="${blogPost.author}"
+					placeholder="Introduzca el nombre del autor de la noticia">
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostCategory" class="form-label">Categoría</label>
+				<input type="text" class="form-control" id="inpBlogPostCategory"
+					name="category" th:value="${blogPost.category}"
+					placeholder="Introduzca la categoría de la noticia">
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostImage" class="form-label">Imagen de
+					cabecera</label> <input class="form-control" type="file" accept="image/*"
+					id="inpBlogPostImage" name="file" th:value="${blogPost.image}">
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostText" class="form-label">Texto</label>
+				<textarea class="form-control" id="inpBlogPostText" rows="8"
+					name="text" placeholder="Introduzca el texto de la noticia"
+					th:text="${blogPost.text}"></textarea>
+			</div>
+			<div class="float-end">
+				<a th:href="@{/admin/posts}" class="btn btn-outline-secondary me-2">Cancelar</a>
+				<button type="button" class="btn btn-danger me-2"
+					data-bs-toggle="modal" data-bs-target="#confirmation-modal">Eliminar</button>
+				<button type="submit" name="btnEditBlogPost" class="btn btn-primary">Guardar</button>
+			</div>
+		</form>
+	</main>
+
+	<div class="modal" tabindex="-1" id="confirmation-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">¿Quieres continuar?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>¿Estás seguro de que quieres eliminar el elemento? Esta
+						acción no se podrá deshacer.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Cancelar</button>
+					<form action="/actDropBlogPost" method="post">
+						<button type="submit" id="btnDropBlogPost" name="blogPostId"
+							th:value="${blogPost.id}" class="btn btn-primary">Eliminar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

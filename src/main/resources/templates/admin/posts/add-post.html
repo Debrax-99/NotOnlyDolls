@@ -1,0 +1,95 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<title>NoD - Admin</title>
+</head>
+
+<body class="container">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/admin}"><img
+				src="../../images/NoDlogo.png" alt="Not Only Dolls logo"
+				style="width: 100px">NOT ONLY DOLLS | ADMIN</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/admin/posts}">Artículos del Blog</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/admin/photos}">Fotos de la Galería</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<main class="container py-5">
+		<h1>Nuevo artículo del Blog</h1>
+		<form th:action="@{/actInsertBlogPost}" th:object="${newBlogPost}"
+			method="POST" id="blog-add" enctype="multipart/form-data">
+			<div class="form-group mb-3">
+				<label for="inpBlogPostTitle" class="form-label">Título</label> <input
+					type="text" required="required" class="form-control"
+					id="inpBlogPostTitle" name="title"
+					placeholder="Introduzca el título de la noticia">
+			</div>
+			<div class="mb-3 form-check">
+				<input type="checkbox" class="form-check-input"
+					id="inpBlogPostPublished" name="published"> <label
+					class="form-check-label" for="inpBlogPostPublished">Publicado</label>
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostAuthor" class="form-label">Autor</label> <input
+					type="text" class="form-control" id="inpBlogPostAuthor"
+					name="author"
+					placeholder="Introduzca el nombre del autor de la noticia">
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostCategory" class="form-label">Categoría</label>
+				<input type="text" class="form-control" id="inpBlogPostCategory"
+					name="category" placeholder="Introduzca la categoría de la noticia">
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostImage" class="form-label">Adjuntar
+					imagen de cabecera</label> <input class="form-control" type="file"
+					accept="image/*" id="inpGalleryPictureImage" name="file">
+			</div>
+			<div class="form-group mb-3">
+				<label for="inpBlogPostText" class="form-label">Texto</label>
+				<textarea class="form-control" id="inpBlogPostText" name="text"
+					rows="8" placeholder="Introduzca el texto de la noticia"></textarea>
+			</div>
+			<div class="float-end">
+				<a th:href="@{/admin/posts}" class="btn btn-outline-secondary me-2">Cancelar</a>
+				<button type="submit" name="btnInsertBlogPost"
+					class="btn btn-primary">Guardar</button>
+			</div>
+		</form>
+	</main>
+
+	<!-- Form validation -->
+	<script src="../../js/validation.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			new FormValidation(document.getElementById('blog-add'));
+		});
+	</script>
+</body>
+
+</html>

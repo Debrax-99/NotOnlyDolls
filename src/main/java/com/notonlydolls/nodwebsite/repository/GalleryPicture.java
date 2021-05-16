@@ -38,7 +38,7 @@ public class GalleryPicture {
 	private String image;
 
 	@Field(value = "title")
-	/** Post title */
+	/** Picture title */
 	private String title;
 
 	
