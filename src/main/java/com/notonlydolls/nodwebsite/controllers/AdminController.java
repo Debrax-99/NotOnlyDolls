@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +19,7 @@ import com.notonlydolls.nodwebsite.repository.BlogPost;
 import com.notonlydolls.nodwebsite.repository.GalleryPicture;
 import com.notonlydolls.nodwebsite.services.BlogPostServiceI;
 import com.notonlydolls.nodwebsite.services.GalleryPictureServiceI;
-import com.notonlydolls.nodwebsite.storage.StorageServiceI;
+import com.notonlydolls.nodwebsite.services.storage.StorageServiceI;
 
 /**
  * Clase "Controlador" que controla las peticiones relativas a la administración
@@ -48,13 +49,16 @@ public class AdminController {
 	 * @param model
 	 * @return String
 	 */
-	@GetMapping("/showAdminView")
+	@GetMapping("/admin/showAdminView")
 	public String showAdminView(Model model) {
 
 		return "admin";
 	}
 
-	/** === BLOG POSTS === */
+	/**
+	 * ====================================== BLOG POSTS
+	 * ======================================
+	 */
 
 	/**
 	 * Mostrar el listado de todas las noticias del blog.
@@ -105,14 +109,19 @@ public class AdminController {
 
 		} else {
 
-			// Asignación del nombre de archivo al atributo image de la noticia.
-			newBlogPost.setImage(file.getOriginalFilename());
+			if (!file.isEmpty()) {
+				// Asignación del nombre de archivo al atributo image de la noticia.
+				newBlogPost.setImage(file.getOriginalFilename());
+
+				// Guardado de la nueva imagen
+				storageService.storePost(file);
+			}
+			// Creación del slug para la noticia
+			newBlogPost.setSlug(newBlogPost.constructSlug(newBlogPost.getTitle()));
 
 			// Inserción de la nueva noticia
 			blogPostService.insert(newBlogPost);
 
-//			// Guardado de la nueva imagen
-//			storageService.storePhoto(file);
 		}
 
 		return "redirect:admin/posts";
@@ -143,8 +152,9 @@ public class AdminController {
 	 * @throws Exception
 	 */
 	@PostMapping("/actEditBlogPost")
-	private String submitEditBlogPostForm(@Valid @ModelAttribute BlogPost blogPost,
-			@RequestParam("file") MultipartFile file, BindingResult result) throws Exception {
+	private String submitEditBlogPostForm(@RequestParam String blogPostId,
+			@Valid @ModelAttribute BlogPost editedBlogPost, @RequestParam("file") MultipartFile file,
+			BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 
@@ -153,17 +163,21 @@ public class AdminController {
 			throw new Exception("Parámetros de inserción erróneos.");
 
 		} else {
-			
-			System.out.println(blogPost.toString());
 
-			// Asignación del nombre de archivo al atributo image de la noticia.
-			blogPost.setImage(file.getOriginalFilename());
+			if (!file.isEmpty()) {
+				// Asignación del nombre de archivo al atributo image de la noticia.
+				editedBlogPost.setImage(file.getOriginalFilename());
+
+				// Guardado de la nueva imagen
+				storageService.storePost(file);
+			}
+			editedBlogPost.setPersisted(true);
+			editedBlogPost.setId(blogPostId);
+			editedBlogPost.setCreationDate(blogPostService.searchById(blogPostId).get().getCreationDate());
+			editedBlogPost.setSlug(editedBlogPost.constructSlug(editedBlogPost.getTitle()));
 
 			// Actualización de la noticia.
-			blogPostService.update(blogPost);
-
-//			// Guardado de la nueva imagen.
-//			storageService.storePhoto(file);
+			blogPostService.update(editedBlogPost);
 		}
 
 		return "redirect:admin/posts";
@@ -179,17 +193,19 @@ public class AdminController {
 	public String deleteBlogPost(@RequestParam String blogPostId, Model model) {
 		// Búsqueda de la noticia en la BBDD.
 		final BlogPost blogPostToDelete = blogPostService.searchById(blogPostId).get();
-		
+
 		// Borrado de la noticia en la BBDD.
 		blogPostService.delete(blogPostId);
-		
+
 		//
 		storageService.deleteFilePhoto(blogPostToDelete.getImage());
 
 		return "redirect:admin/posts";
 	}
 
-	/** === GALLERY PICTURES === */
+	/**
+	 * ====================================== GALLERY PICTURES ======================================
+	 */
 
 	/**
 	 * Mostrar el listado de todas las fotos de la galería.
@@ -240,14 +256,16 @@ public class AdminController {
 
 		} else {
 
-			// Asignación del nombre de archivo al atributo image de la foto.
-			newGalleryPicture.setImage(file.getOriginalFilename());
+			if (!file.isEmpty()) {
+				// Asignación del nombre de archivo al atributo image de la foto.
+				newGalleryPicture.setImage(file.getOriginalFilename());
+
+				// Guardado de la nueva imagen
+				storageService.storePhoto(file);
+			}
 
 			// Inserción de la nueva foto
 			galleryPictureService.insert(newGalleryPicture);
-
-//			// Guardado de la nueva imagen
-//			storageService.storePhoto(file);
 		}
 
 		return "redirect:admin/photos";
@@ -277,9 +295,10 @@ public class AdminController {
 	 * @return String
 	 * @throws Exception
 	 */
-	@PostMapping("/actEditGalleryPicture")
-	private String submitEditGalleryPictureForm(@Valid @ModelAttribute GalleryPicture galleryPicture,
-			@RequestParam("file") MultipartFile file, BindingResult result) throws Exception {
+	@PutMapping("/actEditGalleryPicture")
+	private String submitEditGalleryPictureForm(@RequestParam String galleryPictureId,
+			@Valid @ModelAttribute GalleryPicture editedgalleryPicture, @RequestParam("file") MultipartFile file,
+			BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
 
@@ -289,14 +308,20 @@ public class AdminController {
 
 		} else {
 
-			// Asignación del nombre de archivo al atributo image de la foto.
-			galleryPicture.setImage(file.getOriginalFilename());
+			if (!file.isEmpty()) {
+				// Asignación del nombre de archivo al atributo image de la foto.
+				editedgalleryPicture.setImage(file.getOriginalFilename());
 
-			// Actualización de la noticia
-			galleryPictureService.update(galleryPicture);
+				// Guardado de la nueva imagen.
+				storageService.storePhoto(file);
+			}
+			editedgalleryPicture.setPersisted(true);
+			editedgalleryPicture.setCreationDate(galleryPictureService.searchById(galleryPictureId).get().getCreationDate());
+			editedgalleryPicture.setId(galleryPictureId);
 
-//			// Guardado de la nueva imagen
-//			storageService.storePhoto(file);
+			// Actualización de la foto.
+			galleryPictureService.update(editedgalleryPicture);
+
 		}
 
 		return "redirect:admin/photos";
@@ -312,11 +337,11 @@ public class AdminController {
 	public String deleteGalleryPicture(@RequestParam String galleryPictureId, Model model) {
 		// Búsqueda de la foto en la BBDD.
 		final GalleryPicture galleryPictureToDelete = galleryPictureService.searchById(galleryPictureId).get();
-				
+
 		// Borrado de la foto en la BBDD.
 		galleryPictureService.delete(galleryPictureId);
-		
-//		storageService.deleteFilePhoto(galleryPictureToDelete.getImage());
+
+		storageService.deleteFilePhoto(galleryPictureToDelete.getImage());
 
 		return "redirect:admin/photos";
 	}

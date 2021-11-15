@@ -27,34 +27,40 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<form th:action="@{/perform_logout}" method="POST">
-				<button type="submit" id="btnLogout" name="logout"
-					class="btn btn-secondary btn-sm">Logout</button>
-			</form>
-		</div>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/posts}">Artículos del Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/photos}">Fotos de la Galería</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 
-  <main class="container py-5">
-    <div class="row g-5">
-      <div class="col-md-6">
-        <h2>Artículos del Blog</h2>
-        <p>Panel de gestión de artículos del blog (añadir nuevos artículos, editar y eliminar artículos existentes)</p>
-        <a th:href="@{/admin/posts}" class="btn btn-primary btn-m">
-          Abrir
-        </a>
-      </div>
-      <div class="col-md-6">
-        <h2>Fotos de la Galería</h2>
-        <p>Panel de gestión de fotos de la galería (añadir nuevas fotografías, editar y eliminar fotografías existentes)</p>
-        <a th:href="@{/admin/photos}" class="btn btn-primary btn-m">
-          Abrir
-        </a>
-      </div>
-    </div>
-  </main>
+	<main class="container py-5">
+		<div class="row g-5">
+			<h1>Login</h1>
+			<form name='loginForm' th:action="@{/perform_login}" method='POST'>
+				<table>
+					<tr>
+						<td>User:</td>
+						<td><input type='text' name='username' value='' required></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><input type='password' name='password' required/></td>
+					</tr>
+					<tr>
+						<td><input name="submit" type="submit" value="Submit" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
 </body>

@@ -1,4 +1,4 @@
-package com.notonlydolls.nodwebsite.storage;
+package com.notonlydolls.nodwebsite.services.storage;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 /**
- * Clase "Servicio" de guardado y recuperación de archivos
+ * Service class that manages file storage
  * 
  * @author Ana Blanco Escudero
  * @since 06-05-21
@@ -15,42 +15,42 @@ import java.util.stream.Stream;
 public interface StorageServiceI {
 
 	/*
-    Metodo para guardar los archivos
+	 * Store post picture
      */
     public void storePost(MultipartFile file);
 
     /*
-    Metodo para cargar un archivo
+     * Retrieve post picture
      */
     public Resource loadPost(String filename);
 
     /*
-    Metodo para Cargar todos los archivos
+     * Retrieve all post pictures
      */
     public Stream<Path> loadAllPosts();
 
     /*
-    Metodo para Borrar un archivo
+     * Delete post picture
      */
     public String deleteFilePost(String filename);
     
     /*
-    Metodo para guardar los archivos
+     * Store gallery picture
      */
     public void storePhoto(MultipartFile file);
 
     /*
-    Metodo para cargar un archivo
+     * Retrieve gallery picture
      */
     public Resource loadPhoto(String filename);
 
     /*
-    Metodo para Cargar todos los archivos
+     * Retrieve all gallery pictures
      */
     public Stream<Path> loadAllPhotos();
 
     /*
-    Metodo para Borrar un archivo
+     * Delete gallery picture
      */
     public String deleteFilePhoto(String filename);
 }

@@ -11,7 +11,7 @@ import com.notonlydolls.nodwebsite.repository.BlogPost;
 import com.notonlydolls.nodwebsite.repository.BlogPostRepositoryI;
 
 /**
- * Clase "Servicio" de consultas y gestión de noticias del Blog
+ * Service class that manages blog posts
  * 
  * @author Ana Blanco Escudero
  * @since 15-04-21
@@ -19,11 +19,11 @@ import com.notonlydolls.nodwebsite.repository.BlogPostRepositoryI;
 @Service
 public class BlogPostServiceImpl implements BlogPostServiceI {
 	
-	/** Repositorio: blog_post */
+	/** Repository: blog_post */
 	@Autowired
 	private BlogPostRepositoryI blogPostRepository;
 
-	/** Métodos CRUD */
+	/** CRUD */
 	@Override
 	public void insert(BlogPost entity) {
 		System.out.println("********************** INSERT **********************");

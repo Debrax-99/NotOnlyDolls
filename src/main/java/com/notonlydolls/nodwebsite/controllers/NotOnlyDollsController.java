@@ -1,11 +1,13 @@
 package com.notonlydolls.nodwebsite.controllers;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.notonlydolls.nodwebsite.repository.BlogPost;
@@ -47,7 +49,17 @@ public class NotOnlyDollsController {
 	 */
 	@GetMapping("/admin")
 	public String redirectToAdminController() {
-		return "redirect:showAdminView";
+		return "redirect:admin/showAdminView";
+	}
+	
+	/**
+	 * Redirección a la página de inicio tras el logout
+	 * 
+	 * @return String
+	 */
+	@PostMapping("/admin/perform_logout")
+	public String redirectToHomeController() {
+		return "redirect:login";
 	}
 	
 	/**
@@ -71,6 +83,10 @@ public class NotOnlyDollsController {
 
 		// Obtención del listado de noticias de la BBDD.
 		final List<BlogPost> blogPostList = blogPostService.searchAll();
+		
+		blogPostList.sort(Comparator.comparing(BlogPost::getCreationDate));
+		
+		blogPostList.get(0).setLastNew(true);
 
 		// Carga de datos al modelo.
 		model.addAttribute("blogPostListView", blogPostList);
@@ -104,6 +120,11 @@ public class NotOnlyDollsController {
 	@GetMapping("/about-us")
 	public String showAboutUsView() {
 		return "about-us";
+	}
+	
+	@GetMapping("/login")
+	public String showLoginView() {
+		return "login";
 	}
 
 }

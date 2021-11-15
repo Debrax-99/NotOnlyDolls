@@ -29,6 +29,10 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<form th:action="@{/perform_logout}" method="POST">
+					<button type="submit" id="btnLogout" name="logout"
+						class="btn btn-secondary btn-sm">Logout</button>
+				</form>
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" th:href="@{posts}">Artículos
 							del Blog</a></li>

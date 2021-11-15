@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.notonlydolls.nodwebsite.repository.BlogPost;
 
 /**
- * Clase "Servicio" de consultas y gestión de noticias del Blog
+ * Service class that manages blog posts
  * 
  * @author Ana Blanco Escudero
  * @since 15-04-21

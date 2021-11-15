@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -16,32 +17,32 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since 08-04-21
  */
 @Document(collection = "gallery_pictures")
-public class GalleryPicture {
+public class GalleryPicture implements Persistable<String> {
 
 	// ATTRIBUTES:
 	/** Picture id */
 	@Id
 	private String id;
-
-	@CreatedDate
-	@Field(value = "creation_date")
+	
 	/** Creation date */
+	@CreatedDate
 	private Date creationDate;
 
-	@LastModifiedDate
-	@Field(value = "last_date")
 	/** Last modification date */
+	@LastModifiedDate
 	private Date lastDate;
 
-	@Field(value = "image")
 	/** Header image URL */
+	@Field(value = "image")
 	private String image;
 
-	@Field(value = "title")
 	/** Picture title */
+	@Field(value = "title")
 	private String title;
-
 	
+	/** Persisted flag */
+	private boolean persisted;
+
 	// GETTERS & SETTERS
 	/**
 	 * @return the id
@@ -113,7 +114,26 @@ public class GalleryPicture {
 		this.title = title;
 	}
 
-	
+	// PERSISTED FLAG
+	/**
+	 * @return the persisted
+	 */
+	public boolean isPersisted() {
+		return persisted;
+	}
+
+	/**
+	 * @param persisted the persisted to set
+	 */
+	public void setPersisted(boolean persisted) {
+		this.persisted = persisted;
+	}
+
+	@Override
+	public boolean isNew() {
+		return !persisted;
+	}
+
 	// TO STRING
 	@Override
 	public String toString() {
