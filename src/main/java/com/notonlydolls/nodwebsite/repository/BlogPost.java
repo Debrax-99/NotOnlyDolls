@@ -1,10 +1,13 @@
 package com.notonlydolls.nodwebsite.repository;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -16,53 +19,58 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since 06-04-21
  */
 @Document(collection = "blog_posts")
-public class BlogPost {
+public class BlogPost implements Persistable<String>{
 
 	// ATTRIBUTES:
 	/** Post id */	
 	@Id
 	private String id;
 
-	@CreatedDate
-	@Field(value = "creation_date")
 	/** Creation date */
+	@CreatedDate
 	private Date creationDate;
 
-	@LastModifiedDate
-	@Field(value = "last_date")
 	/** Last modification date */
+	@LastModifiedDate
 	private Date lastDate;
 
-	@Field(value = "is_published")
 	/** Published flag */
+	@Field(value = "published")
 	private boolean published;
 
-	@Field(value = "image")
 	/** Header image */
+	@Field(value = "image")
 	private String image;
 
-	@Field(value = "title")
 	/** Post title */
+	@Field(value = "title")
 	private String title;
 
-	@Field(value = "slug")
 	/** URL slug */
+	@Field(value = "slug")
 	private String slug;
 
-	@Field(value = "category")
 	/** Post category */
+	@Field(value = "category")
 	private String category;
 
-	@Field(value = "author")
 	/** Author name */
+	@Field(value = "author")
 	private String author;
 
-	@Field(value = "text")
 	/** Post text */
+	@Field(value = "text")
 	private String text;
-		
+	
+	/** Persisted flag */
+	@Field(value = "persisted")
+	private boolean persisted;
 
-	// GETTERS & SETTERS:
+	/** LastNew flag */
+	@Transient
+	private boolean lastNew = false;
+	
+	// GETTERS & SETTERS
 	/**
 	 * @return the id
 	 */
@@ -106,14 +114,14 @@ public class BlogPost {
 	}
 
 	/**
-	 * @return the isPublished
+	 * @return the published
 	 */
 	public boolean isPublished() {
 		return published;
 	}
 
 	/**
-	 * @param isPublished the isPublished to set
+	 * @param published the published to set
 	 */
 	public void setPublished(boolean published) {
 		this.published = published;
@@ -203,13 +211,65 @@ public class BlogPost {
 		this.text = text;
 	}
 
-	
+	/**
+	 * @return the persisted
+	 */
+	public boolean isPersisted() {
+		return persisted;
+	}
+
+	/**
+	 * @param persisted the persisted to set
+	 */
+	public void setPersisted(boolean persisted) {
+		this.persisted = persisted;
+	}
+
+	/**
+	 * @return the lastNew
+	 */
+	public boolean isLastNew() {
+		return lastNew;
+	}
+
+	/**
+	 * @param lastNew the lastNew to set
+	 */
+	public void setLastNew(boolean lastNew) {
+		this.lastNew = lastNew;
+	}
+		
+	@Override
+	public boolean isNew() {
+		return !persisted;
+	}
+
 	// TO STRING
 	@Override
 	public String toString() {
 		return "BlogPost [id=" + id + ", creationDate=" + creationDate + ", lastDate=" + lastDate + ", published="
 				+ published + ", image=" + image + ", title=" + title + ", slug=" + slug + ", category=" + category
 				+ ", author=" + author + ", text=" + text + "]";
+	}
+	
+	// SLUG CONSTRUCTION METHOD
+	/**
+	 * 
+	 * @param title
+	 * @return
+	 */
+	public String constructSlug(String title) {
+		title = title.replaceAll("[^A-Za-z0-9 ]", "");
+		String[] slugWords = Arrays.copyOfRange(title.toLowerCase().trim().split(" "), 0, 4);
+		String slug = "";
+		for (int i = 0; i < slugWords.length; i++) {
+			slug += slugWords[i];
+			if (i < slugWords.length-1) {				
+				slug += "-";
+			}
+			i++;
+		}
+		return slug;
 	}
 
 }
