@@ -11,6 +11,12 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
+/**
+ * Configuration class for MongoDB connection
+ * 
+ * @author Ana Blanco Escudero
+ * @since 06-04-21
+ */
 @Configuration
 public class MongoConfig extends AbstractMongoClientConfiguration {
  

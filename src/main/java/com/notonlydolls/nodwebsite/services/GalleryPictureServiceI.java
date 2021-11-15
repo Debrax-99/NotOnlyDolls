@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.notonlydolls.nodwebsite.repository.GalleryPicture;
 
 /**
- * Clase "Servicio" de consultas y gestión de fotos de la galería
+ * Service class that manages gallery pictures
  * 
  * @author Ana Blanco Escudero
  * @since 17-04-21
