@@ -52,7 +52,7 @@
 						<h1 class="display-4 fst-italic" th:text="${blogPost.title}"></h1>
 						<p class="lead my-3 clamped" th:text="${blogPost.text}"></p>
 						<p class="lead mb-0">
-							<a href="/post.html" class="text-white fw-bold">Continuar
+							<a th:href="@{${'/blog/' + blogPost.id}}"  class="text-white fw-bold">Continuar
 								leyendo</a>
 						</p>
 					</div>
@@ -70,7 +70,7 @@
 							<h3 class="mb-0" th:text="${blogPost.title}"></h3>
 							<div class="mb-1 text-muted" th:text="${blogPost.creationDate}"></div>
 							<p class="card-text mb-auto" th:text="${blogPost.author}"></p>
-							<a href="/post.html" class="stretched-link">Continuar leyendo</a>
+							<a th:href="@{${'/blog/' + blogPost.id}}" class="stretched-link">Continuar leyendo</a>
 						</div>
 					</div>
 				</div>

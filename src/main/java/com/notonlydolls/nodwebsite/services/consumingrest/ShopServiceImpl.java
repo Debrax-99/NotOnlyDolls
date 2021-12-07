@@ -44,12 +44,37 @@ public class ShopServiceImpl implements ShopServiceI {
 		ResponseEntity<Result> response = restTemplate.getForEntity("https://openapi.etsy.com/v2/shops/" + SHOP_ID + "/listings/active?api_key=" + API_KEY,
 				Result.class);
 		Result result = response.getBody();
+		
 		List<List<Product>> productsList = Arrays.asList(result.getResults());
 		List<Product> products = new ArrayList<Product>();
+		
 		for (List<Product> list : productsList) {
 			products.addAll(list);
 		}
+		for (Product product : products) {
+			product.setImage(getImage(product.getId()).getUrl());
+		}
+		
 		return products;
+	}
+
+	@Override
+	public Image getImage(String productId) {
+		ResponseEntity<ResultI> response = restTemplate.getForEntity("https://openapi.etsy.com/v2/listings/" + productId + "/images?api_key=" + API_KEY,
+				ResultI.class);
+		ResultI result = response.getBody();
+		
+		List<List<Image>> imagesList = Arrays.asList(result.getResults());
+		List<Image> images = new ArrayList<Image>();
+		
+		for (List<Image> list : imagesList) {
+			images.addAll(list);
+		}
+		
+		return images.stream()
+				  .filter(img -> img.getRank() == 1)
+				  .findAny()
+				  .orElse(null);
 	}
 
 }

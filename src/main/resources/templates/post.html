@@ -13,66 +13,41 @@
   <title>Not Only Dolls</title>
 </head>
 
-<body>
+<body class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Not Only Dolls</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="/blog.html">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/shop.html">Tienda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/gallery.html">Galería</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about_us.html">Sobre Nosotros</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{/}"><img
+					src="../images/NoDlogo.png" alt="Not Only Dolls logo">NOT ONLY
+					DOLLS</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link active"
+							th:href="@{/showBLogView}">Noticias</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/shop}">Tienda</a>
+						</li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/showGalleryView}">Galería</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/about-us}">Sobre Nosotros</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
   <main class="container py-5">
     <article>
-      <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
-      <p><em>Enero 1, 2021</em></p>
+      <h2 th:text="${blogPostView.title}"></h2>
+      <p><em th:text="${blogPostView.creationDate}"></em></p>
 
-      <img src="https://via.placeholder.com/700x200" class="img-fluid rounded mx-auto d-block mt-5 mb-5" alt="Lorem ipsum">
+      <img th:src="@{${'/pictures/' + blogPostView.image}}" class="img-fluid rounded mx-auto d-block mt-5 mb-5" alt="${blogPostView.title}">
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel laoreet enim, nec posuere nisi. Nulla
-        facilisi. Nam bibendum porttitor nisl, nec sollicitudin erat eleifend a.</p>
-      <p>Praesent nec augue a lectus gravida
-        sodales nec a nisi. Praesent in nulla vitae est hendrerit venenatis. Ut dignissim scelerisque gravida. Donec
-        sodales mi tortor, vel imperdiet leo malesuada vitae. Nulla molestie nibh elit, quis hendrerit metus venenatis
-        a. In placerat lectus at felis lacinia, vel venenatis odio molestie.</p>
-      <p>In at tellus ipsum. Vivamus dapibus eget metus in facilisis. Sed vulputate ornare eros, eu ornare turpis
-        bibendum
-        et. Fusce non arcu ac dolor porttitor ullamcorper. Curabitur at malesuada dui. Pellentesque feugiat egestas nunc
-        in pretium. In nec lobortis purus, sed porta nibh. Proin odio nisl, laoreet in tincidunt non, pharetra at dui.
-      </p>
-      <p>Nam id dolor suscipit, fringilla est at, lacinia nisl. Phasellus egestas suscipit mi, pretium sollicitudin
-        turpis
-        lobortis quis. Proin ultrices in massa sed venenatis. Duis eu dui auctor nunc ultricies faucibus sed sit amet
-        ante. In sed erat quis est eleifend placerat. Vivamus vitae ligula aliquam, pellentesque ipsum nec, eleifend
-        magna. Etiam rhoncus magna non neque venenatis, eleifend dictum nibh pretium. Mauris molestie augue diam, nec
-        luctus urna vulputate non. Pellentesque sed dapibus sem. Curabitur viverra, risus et eleifend viverra, mauris
-        arcu
-        euismod diam, id lobortis odio lacus sit amet est.</p>
-      <p>Phasellus at cursus orci, et suscipit dui. Duis id dictum metus. Sed vehicula odio vel lectus scelerisque
-        ullamcorper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec at
-        aliquam nisl. Aenean dictum mi diam, tempor rutrum nulla viverra molestie. Vestibulum eget risus sit amet lectus
-        aliquet porttitor. Nunc odio enim, auctor id nisi vitae, accumsan elementum quam. Pellentesque aliquet nisl a
-        massa iaculis, eget porta lorem tincidunt. Donec feugiat ipsum ipsum. Sed sit amet interdum tortor, sit amet
-        faucibus sapien. Praesent ac justo luctus, placerat lorem in, imperdiet neque. Suspendisse rhoncus sollicitudin
-        suscipit.</p>
+      <p th:text="${blogPostView.text}"></p>
     </article>
   </main>
 

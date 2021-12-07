@@ -16,5 +16,12 @@ public interface ShopServiceI {
 	 * @return List<Product>
 	 */
 	public List<Product> getProducts();
+	
+	/**
+	 * Retrieve all product images from shop
+	 * 
+	 * @return List<Product>
+	 */
+	public Image getImage(String productId);
 
 }

@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -295,7 +294,7 @@ public class AdminController {
 	 * @return String
 	 * @throws Exception
 	 */
-	@PutMapping("/actEditGalleryPicture")
+	@PostMapping("/actEditGalleryPicture")
 	private String submitEditGalleryPictureForm(@RequestParam String galleryPictureId,
 			@Valid @ModelAttribute GalleryPicture editedgalleryPicture, @RequestParam("file") MultipartFile file,
 			BindingResult result) throws Exception {
@@ -307,7 +306,6 @@ public class AdminController {
 			throw new Exception("Parámetros de inserción erróneos.");
 
 		} else {
-
 			if (!file.isEmpty()) {
 				// Asignación del nombre de archivo al atributo image de la foto.
 				editedgalleryPicture.setImage(file.getOriginalFilename());
@@ -316,8 +314,8 @@ public class AdminController {
 				storageService.storePhoto(file);
 			}
 			editedgalleryPicture.setPersisted(true);
-			editedgalleryPicture.setCreationDate(galleryPictureService.searchById(galleryPictureId).get().getCreationDate());
 			editedgalleryPicture.setId(galleryPictureId);
+			editedgalleryPicture.setCreationDate(galleryPictureService.searchById(galleryPictureId).get().getCreationDate());
 
 			// Actualización de la foto.
 			galleryPictureService.update(editedgalleryPicture);
