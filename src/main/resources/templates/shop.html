@@ -59,12 +59,12 @@
 					<th:block th:each="product : ${productListView}">
 						<div class="col">
 							<div class="card shadow-sm">
-								<img src="https://via.placeholder.com/300x200"
+								<img th:src="${product.image}"
 									class="bd-placeholder-img card-img-top img-fluid"
 									th:alt="${product.title}">
 		
 								<div class="card-body">
-									<h3 lass="mb-0" th:text="${product.title}"></h3>
+									<h3 class="mb-0" th:text="${product.title}"></h3>
 									<p class="card-text clamped" th:text="${product.description}" />
 									<div class="d-flex justify-content-between align-items-center">
 										<a th:href="${product.url}" target="_blank"

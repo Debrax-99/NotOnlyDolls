@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Product {
 	
 	// ATTRIBUTES:
+	@JsonProperty("listing_id")
+	private String id;
 	private String state;
 	private String title;
 	private String description;
@@ -19,9 +21,21 @@ public class Product {
 	private List<String> tags;
 	private List<String> materials;
 	private String url;
-	
+	private String image;	
 	
 	// GETTERS & SETTERS
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 	/**
 	 * @return the state
 	 */
@@ -129,6 +143,18 @@ public class Product {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}	
+	/**
+	 * @return the image
+	 */
+	public String getImage() {
+		return image;
+	}
+	/**
+	 * @param image the image to set
+	 */
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	// TO STRING
