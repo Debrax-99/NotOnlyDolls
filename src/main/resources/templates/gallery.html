@@ -51,7 +51,7 @@
 				<th:block th:each="galleryPicture, picStat : ${galleryPictureListView}">
 					<div th:class="${picStat.first}? 'carousel-item active' : 'carousel-item'">
 						<img th:src="@{${'/pictures/' + galleryPicture.image}}"
-							class="d-block w-100" alt="Lorem ipsum">
+							class="d-block w-100" alt="${galleryPicture.title}">
 						<div class="carousel-caption d-none d-md-block">
 							<h5 th:text="${galleryPicture.title}"></h5>
 						</div>

@@ -41,7 +41,7 @@ public class ShopServiceImpl implements ShopServiceI {
 
 	@Override
 	public List<Product> getProducts() {
-		ResponseEntity<Result> response = restTemplate.getForEntity("https://openapi.etsy.com/v2/shops/" + SHOP_ID + "/listings/active?api_key=" + API_KEY,
+		ResponseEntity<Result> response = restTemplate.getForEntity("https://openapi.etsy.com/v2/shops/" + SHOP_ID + "/listings/active?api_key=" + API_KEY + "&language=es",
 				Result.class);
 		Result result = response.getBody();
 		

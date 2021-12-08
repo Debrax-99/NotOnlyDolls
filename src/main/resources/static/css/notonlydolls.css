@@ -5,3 +5,16 @@
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
+
+body {
+	font-family: 'Roboto Condensed', sans-serif !important;
+	text-align: justify !important;
+}
+
+h1 {
+    font-family: 'Sail', cursive !important;
+}
+
+h2,h3 {
+	font-family: 'Courgette', cursive !important;
+}
