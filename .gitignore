@@ -1,5 +1,5 @@
 # Properties file
-*.properties
+**/*.properties
 
 # Compiled class file
 *.class
