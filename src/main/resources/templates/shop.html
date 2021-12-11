@@ -1,6 +1,5 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -12,6 +11,8 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +22,7 @@
 	rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="./css/notonlydolls.css">
-<title>Not Only Dolls</title>
+<title>NoD - BJD and Artdolls Atelier</title>
 </head>
 
 <body class=container>
@@ -76,7 +77,7 @@
 								<p class="card-text clamped" th:utext="${product.description}" />
 								<div class="d-flex justify-content-between align-items-center">
 									<a th:href="${product.url}" target="_blank"
-										class="btn btn-sm btn-primary">Ver más</a> <small
+										class="btn btn-sm btn-secondary">Ver más</a> <small
 										class="text-muted"
 										th:text="${product.price} + ' ' + ${product.currency}"></small>
 								</div>

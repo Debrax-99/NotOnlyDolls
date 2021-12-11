@@ -86,6 +86,7 @@ public class NotOnlyDollsController {
 		// Obtención del listado de noticias de la BBDD.
 		final List<BlogPost> blogPostList = blogPostService.searchAll();
 		
+		blogPostList.removeIf(b -> !b.isPublished());
 		blogPostList.sort(Comparator.comparing(BlogPost::getCreationDate));
 		
 		blogPostList.get(0).setLastNew(true);

@@ -1,6 +1,5 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -12,9 +11,18 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Courgette&family=Roboto+Condensed:wght@300&family=Sail&display=swap"
+	rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="./css/notonlydolls.css">
-<title>Not Only Dolls</title>
+<title>NoD - BJD and Artdolls Atelier</title>
 </head>
 
 <body class=container>
@@ -52,8 +60,8 @@
 					<div th:class="${picStat.first}? 'carousel-item active' : 'carousel-item'">
 						<img th:src="@{${'/pictures/' + galleryPicture.image}}"
 							class="d-block w-100" alt="${galleryPicture.title}">
-						<div class="carousel-caption d-none d-md-block">
-							<h5 th:text="${galleryPicture.title}"></h5>
+						<div class="carousel-caption d-none d-md-block bg-secondary bg-opacity-50">
+							<h4 class="" th:text="${galleryPicture.title}"></h5>
 						</div>
 					</div>
 				</th:block>

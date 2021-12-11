@@ -260,11 +260,11 @@ public class BlogPost implements Persistable<String>{
 	 */
 	public String constructSlug(String title) {
 		title = title.replaceAll("[^A-Za-z0-9 ]", "");
-		String[] slugWords = Arrays.copyOfRange(title.toLowerCase().trim().split(" "), 0, 4);
+		String[] slugWords = Arrays.copyOfRange(title.toLowerCase().trim().split(" "), 0, 5);
 		String slug = "";
 		for (int i = 0; i < slugWords.length; i++) {
 			slug += slugWords[i];
-			if (i < slugWords.length-1) {				
+			if (i < slugWords.length-2) {				
 				slug += "-";
 			}
 			i++;
