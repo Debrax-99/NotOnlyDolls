@@ -3,7 +3,9 @@ package com.notonlydolls.nodwebsite;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
 import com.mongodb.ConnectionString;
@@ -18,16 +20,25 @@ import com.mongodb.client.MongoClients;
  * @since 06-04-21
  */
 @Configuration
+@PropertySource("classpath:nodwebsite.properties")
 public class MongoConfig extends AbstractMongoClientConfiguration {
  
+	// Database port
+	@Value("${db_port}")
+	private String port;
+	
+	// Database name
+	@Value("${db_name}")
+	private String name;
+		
     @Override
     protected String getDatabaseName() {
-        return "db_notonlydolls";
+        return name;
     }
  
     @Override
     public MongoClient mongoClient() {
-        ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/db_notonlydolls");
+        ConnectionString connectionString = new ConnectionString("mongodb://localhost:" + port + "/" + name);
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
             .applyConnectionString(connectionString)
             .build();

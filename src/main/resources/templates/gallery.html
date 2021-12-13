@@ -53,29 +53,46 @@
 	</nav>
 
 	<main class="container">
-		<div id="photo-gallery" class="carousel slide my-5"
+		<div id="photo-gallery" class="carousel slide my-5 d-none d-lg-block"
 			data-bs-ride="carousel">
 			<div class="carousel-inner">
-				<th:block th:each="galleryPicture, picStat : ${galleryPictureListView}">
-					<div th:class="${picStat.first}? 'carousel-item active' : 'carousel-item'">
+				<th:block
+					th:each="galleryPicture, picStat : ${galleryPictureListView}">
+					<div
+						th:class="${picStat.first}? 'carousel-item active' : 'carousel-item'">
 						<img th:src="@{${'/pictures/' + galleryPicture.image}}"
 							class="d-block w-100" alt="${galleryPicture.title}">
-						<div class="carousel-caption d-none d-md-block bg-secondary bg-opacity-50">
-							<h4 class="" th:text="${galleryPicture.title}"></h5>
+						<div
+							class="carousel-caption d-none d-lg-block bg-secondary bg-opacity-50">
+							<h4 th:text="${galleryPicture.title}"></h4>
 						</div>
 					</div>
 				</th:block>
 			</div>
-			<button class="carousel-control-prev" type="button"
+			<button class="carousel-control-prev d-none d-lg-block" type="button"
 				data-bs-target="#photo-gallery" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Previous</span>
 			</button>
-			<button class="carousel-control-next" type="button"
+			<button class="carousel-control-next d-none d-lg-block" type="button"
 				data-bs-target="#photo-gallery" data-bs-slide="next">
 				<span class="carousel-control-next-icon" aria-hidden="true"></span>
 				<span class="visually-hidden">Next</span>
 			</button>
+		</div>
+		<div>
+			<th:block
+				th:each="galleryPicture, picStat : ${galleryPictureListView}">
+				<div
+					class="d-lg-none d-block">
+					<img th:src="@{${'/pictures/' + galleryPicture.image}}"
+						class="w-100" alt="${galleryPicture.title}">
+					<div
+						class="mb-3">
+						<h4 th:text="${galleryPicture.title}"></h4>
+					</div>
+				</div>
+			</th:block>
 		</div>
 	</main>
 
