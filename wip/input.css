@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --color-plum: #644a65;
+  --color-mauve: #b294b0;
+  --color-blush: #d1bcc3;
+  --color-mist: #dddddf;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+}

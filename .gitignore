@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# agents MD
+architecture.md
+
+# Static site local config (social links)
+wip/config.js
